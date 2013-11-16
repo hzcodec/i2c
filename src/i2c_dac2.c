@@ -1,12 +1,12 @@
 /* 
     Auther      : Heinz Samuelsson
-    Date        : 2013-11-15
-    File        : i2c_dac1.c
+    Date        : 2013-11-16
+    File        : i2c_dac2.c
     Reference   : 
     Description : Control MCP4725 DAC.
-                  4095 = 0xfff = 3.3 V
-		  1240 = 0x4d9 = 1.0 V
-		   620 = 0x26c = 0.5 V
+                  Read information from DAC.
+		  Run i2c_dac1.c first. The written data shall
+		  show up in buf[1] and buf[2].
 */
 
 #include <stdio.h>
@@ -27,7 +27,7 @@
 
 int main(int argc, char **argv) {
 
-    printf("*** DAC test program 1 ***,\n");
+    printf("*** DAC test program 2 ***,\n");
 
     int   file;
     char  filename[20];
@@ -43,11 +43,8 @@ int main(int argc, char **argv) {
 	exit(1);
     }
 
-    // set up address and data, 0x500 ~1.0 V
+    // set up address and data
     int addr = DAC_MCP4725;
-    buf[0] = 0x03;
-    buf[1] = 0x14;
-
 
     // set port options
     if (ioctl(file,I2C_SLAVE,addr) < 0) {
@@ -56,10 +53,14 @@ int main(int argc, char **argv) {
     }
 
     // int handle, void *buffer, int nbyte
-    if (write(file,buf,2) != 2) {
-        printf("Unable to write to slave\n");
+    if (read(file,buf,3) != 3) {
+        printf("Unable to read from slave\n");
 	exit(1);
     }
+
+    printf("buf[0]: %02x\n",buf[0]);
+    printf("buf[1]: %02x\n",buf[1]);
+    printf("buf[2]: %02x\n",buf[2]);
 
     return 0;
 }
