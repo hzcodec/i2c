@@ -21,6 +21,8 @@
 
 // TMP102 address
 #define DAC_MCP4725 0x62;
+// i2c port
+#define PORT_NO  1
 
 
 int main(int argc, char **argv) {
@@ -28,12 +30,11 @@ int main(int argc, char **argv) {
     printf("*** DAC 2 test program 2 ***,\n");
 
     int   file;
-    int   adapter_nr = 1;
     char  filename[20];
     char   buf[10];
 
     // print to buffer
-    snprintf(filename,19,"/dev/i2c-%d",adapter_nr);
+    snprintf(filename,19,"/dev/i2c-%d",PORT_NO);
 
     // open port for read/write
     file = open(filename,O_RDWR);
@@ -43,8 +44,8 @@ int main(int argc, char **argv) {
     }
 
     int addr = DAC_MCP4725;
-    buf[0] = 0x0f;
-    buf[1] = 0xff;
+    buf[0] = 0x05;
+    buf[1] = 0x00;
 
 
     // set port options
