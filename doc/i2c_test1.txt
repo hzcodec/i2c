@@ -1,0 +1,29 @@
+How to use TMP102 from Sparkfun
+-------------------------------
+
+For information see:
+  donalmorrissey.blogspot.co.uk/2012/09/raspberry-pi-i2c-tutorial.html
+
+
+How to check the device:
+  > i2cdetect -y 1
+
+How to print out the result from TMP102
+  > i2cget -y 1 0x48 0x00 b
+
+
+
+How to use MCP4725 DAC from Sparkfun
+------------------------------------
+
+For information see:
+  donalmorrissey.blogspot.co.uk/2012/09/raspberry-pi-digital-to-analogue.html
+
+How to check the device:
+  > i2cdetect -y 1
+
+How to set values, 3.3 V = 0xfff:
+  > i2cset -y 1 0x62 0x0f 0xff b
+
+How to set values, 1.86 V = 0x900:
+  > i2cset -y 1 0x62 0x09 0x00 b

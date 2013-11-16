@@ -1,0 +1,97 @@
+This page details how to setup I2C support on the Raspbian “wheezy” image from http://www.raspberrypi.org/downloads
+
+Step 1: Download the latest Raspbian “wheezy” image and burn to your SD Card following the instructions on http://elinux.org/RPi_Easy_SD_Card_Setup
+
+Step 2:  Once you have logged into your Raspberry Pi from the command line, run the following command to install i2c-tools:
+sudo apt-get install i2c-tools
+
+Step 3: Enable I2C and SPI protocols. I2C and SPI protocols are turned off in the wheezy distro by default, so you will need to enable them by editing the file /etc/modprobe.d/raspi-blacklist.conf :
+sudo nano /etc/modprobe.d/raspi-blacklist.conf
+In the file you will see two lines, you need to disable the blacklisting of these by adding a # character before each line:
+#blacklist spi-bcm2708
+#blacklist i2c-bcm2708
+Save your changes and exit the nano editor.
+
+Step 3: Set the Raspberry Pi to start I2C automatically at boot by editing /etc/modules :
+sudo nano /etc/modules
+Use your cursor keys to move to the last line and add a new line and then add:
+i2c-dev
+Save your changes and exit the nano editor.
+
+Step 4: To avoid having to run the I2C tools at root add the ‘pi’ user to the I2C group:
+sudo adduser pi i2c
+
+Step 5: Next you need to update your Raspberry Pi to ensure all the latest packages are installed:
+sudo apt-get update
+
+Step 6: Next reboot the Raspberry Pi:
+sudo reboot
+When your Raspberry Pi has rebooted you will now have I2C support.This page details how to setup I2C support on the Raspbian “wheezy” image from http://www.raspberrypi.org/downloads
+
+
+====================================================================================================
+
+http://binerry.de/post/26685647322/raspberry-pi-and-i2c
+http://blog.oddbit.com/post/i2c-on-the-raspberry-pi
+
+There is no need to mount pull-up resistors on SDA/SCL since RPi has integrated pull-up.
+
+====================================================================================================
+
+C programming and RPi see http://binerry.de/post/26685647322/raspberry-pi-and-i2c.
+====================================================================================================
+
+Good site to read:
+
+
+http://www.esacademy.com/en/library/technical-articles-and-documents/miscellaneous/i2c-bus/general-introduction/special-addresses-and-exceptions.html
+
+http://www.esacademy.com/en/library/technical-articles-and-documents/miscellaneous/i2c-bus/miscellaneous-information/i2c-driver-in-psudocode.html
+
+http://www.robot-electronics.co.uk/acatalog/I2C_Tutorial.html
+====================================================================================================
+
+sudo modprobe i2c-dev
+sudo i2cdetect -y -a 1
+====================================================================================================
+
+Trying to get i2c up and running with wiringPi.
+
+Install i2c-dev
+    > sudo apt-get install libi2c-dev
+
+Then goto /home/heinz/c-pgm/wiringPi and re-make.
+    > ./build clean; ./build
+
+
+First time you need to load kernel module.
+    > gpio load i2c
+
+Run test program at /home/heinz/c-pgm/wiringPi/examples.
+    > make i2c_test1
+    > ./i2c_test1
+
+====================================================================================================
+
+Set up self-test for Bus Pirate:
+
+  Reference: http://dangerousprototypes.com/docs/Bus_Pirate_self-test_guide
+
+  1) Find out the port Bus Pirate is connected to.
+     > dmesg | grep tty
+
+  2) Connect Bus Pirate to Laptop via USB.
+
+  3) Connect +3V3 to ADC and +5V to VPU.
+
+  4) Run a serial terminal to communicate with Bus Pirate.
+     > screen /dev/ttyUSB0 115200 8N1
+
+  5) Type '~' and hit return.
+
+  6) Check result.
+
+  7) To quit screen type ctrl-a d
+ 
+
+====================================================================================================
