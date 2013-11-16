@@ -43,6 +43,7 @@ int main(int argc, char **argv) {
 	exit(1);
     }
 
+    // set up address and data, 0x500 ~1.0 V
     int addr = DAC_MCP4725;
     buf[0] = 0x05;
     buf[1] = 0x00;
