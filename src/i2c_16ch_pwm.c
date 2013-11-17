@@ -5,6 +5,7 @@
     Reference   : learn.adafruit.com/assets/1720
     Description : Control Adafruit's 16 channel 12-bit PWM/Servo driver.
                   Art.no PCA9685.
+		  The code is reading data form the PWM/Servo driver.
 */
 
 #include <stdio.h>
@@ -42,7 +43,7 @@ int main(int argc, char **argv) {
 	exit(1);
     }
 
-    // set up address and data, 0x500 ~1.0 V
+    // set up control and mode1 register
     int addr = PWM_16CH;
     wr_buf[0] = 0x00;
     wr_buf[1] = 0x31;
@@ -53,18 +54,19 @@ int main(int argc, char **argv) {
 	exit(1);
     }
 
-    // int handle, void *buffer, int nbyte
+    // write initial phase so read can be done later
     if (write(file,wr_buf,2) != 2) {
         printf("Unable to write to slave\n");
 	exit(1);
     }
 
-    // int handle, void *buffer, int nbyte
+    // read internal registers from PWM/Servo driver
     if (read(file,buf,10) != 10) {
         printf("Unable to write to slave\n");
 	exit(1);
     }
 
+    // print out result
     printf("MODE1: %02x\n",buf[0]);
     printf("MODE2: %02x\n",buf[1]);
     printf("SUBADR1: %02x\n",buf[2]);
