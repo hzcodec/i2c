@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
     int   file;
     char  filename[20];
     char  wr_buf[10];
-    char  buf[10];
+    char  buf[20];
 
     // print to buffer
     snprintf(filename,19,"/dev/i2c-%d",PORT_NO);
@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
     }
 
     // read internal registers from PWM/Servo driver
-    if (read(file,buf,10) != 10) {
+    if (read(file,buf,17) != 17) {
         printf("Unable to write to slave\n");
 	exit(1);
     }
@@ -76,8 +76,14 @@ int main(int argc, char **argv) {
     printf("LED0_ON_H: %02x\n",buf[6]);
     printf("LED0_OFF_L: %02x\n",buf[7]);
     printf("LED0_ODD_H: %02x\n",buf[8]);
-    printf("buf[9]: %02x\n",buf[9]);
-    printf("buf[10]: %02x\n",buf[10]);
+    printf("LED1_ON_L: %02x\n",buf[9]);
+    printf("LED1_ON_H: %02x\n",buf[10]);
+    printf("LED1_OFF_L: %02x\n",buf[11]);
+    printf("LED1_OFF_H: %02x\n",buf[12]);
+    printf("LED2_ON_L: %02x\n",buf[13]);
+    printf("LED2_ON_H: %02x\n",buf[14]);
+    printf("LED2_OFF_L: %02x\n",buf[15]);
+    printf("LED2_OFF_H: %02x\n",buf[16]);
 
     return 0;
 }
