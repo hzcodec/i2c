@@ -27,3 +27,21 @@ How to set values, 3.3 V = 0xfff:
 
 How to set values, 1.86 V = 0x900:
   > i2cset -y 1 0x62 0x09 0x00 b
+
+
+
+ How to use Adafruits's 16 channel 12-bit PWM/Servo driver
+ ---------------------------------------------------------
+
+How to check the device:
+  > i2cdetect -y 1
+
+How to set values, LED0_ON_H
+  > i2cset -y 1 0x40 0x07 0x01 b
+
+How to get information form PWM/Servo driver, 2nd byte is pointer reg.
+  > i2cget -y 1 0x40 0x07 b    // LED0_ON_H , 0x01
+  > i2cget -y 1 0x40 0x06 b    // LED0_ON_L , 0x22
+  > i2cget -y 1 0x40 0x09 b    // LED0_OFF_H, 0x04
+  > i2cget -y 1 0x40 0x08 b    // LED0_OFF_L, 0xcc
+

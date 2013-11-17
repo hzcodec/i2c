@@ -13,5 +13,8 @@ t1: i2c_tmp1.c
 t2: i2c_tmp2.c
 	$(CC) $(CFLAGS) i2c_tmp2.c -o i2c_tmp2
 
+c1: i2c_16ch_pwm.c
+	$(CC) $(CFLAGS) i2c_16ch_pwm.c -o i2c_16ch_pwm
+
 clean:
-	rm -f a.out i2c_dac1 i2c_dac2 i2c_tmp1 i2c_tmp2
+	rm -f a.out i2c_dac1 i2c_dac2 i2c_tmp1 i2c_tmp2 i2c_16ch_pwm

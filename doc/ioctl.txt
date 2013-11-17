@@ -1,0 +1,34 @@
+ioctl()
+========
+
+The most common use of ioctl is to control hardware devices.
+
+An ioctl interface is a single system call by which userspace may
+communicate with device drivers.
+
+
+An ioctl call takes as parameters:
+  1. an open file descriptor
+  2. a request code number
+  3. either an integer value or a pointer.
+
+
+int ioctl(int d, int request, ...); 
+
+  1st argument d: must be an open file descriptor.
+  2nd argument request: device-dependent request code.
+  3rd argument: untyped pointer to memory.
+
+  
+ Where is ioctl.h?
+ =================
+ /usr/include/asm-generic
+
+
+ Where is i2c header files?
+ =========================
+ /usr/include/linux/i2c-dev.h
+ /usr/include/linux/i2c-dev.h.kernel
+ /usr/include/linux/i2c.h
+
+
