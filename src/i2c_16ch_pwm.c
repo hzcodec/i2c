@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
 
     // set up control and mode1 register
     int addr = PWM_16CH;
-    wr_buf[0] = 0x00;
+    wr_buf[0] = 0x01;
     wr_buf[1] = 0x31;
 
     // set port options
@@ -67,21 +67,21 @@ int main(int argc, char **argv) {
     }
 
     // print out result
-    printf("MODE1: %02x\n",buf[0]);
-    printf("MODE2: %02x\n",buf[1]);
+    printf("MODE1:   %02x\n",buf[0]);
+    printf("MODE2:   %02x\n",buf[1]);
     printf("SUBADR1: %02x\n",buf[2]);
     printf("SUBADR2: %02x\n",buf[3]);
     printf("SUBADR3: %02x\n",buf[4]);
-    printf("LED0_ON_L: %02x\n",buf[5]);
-    printf("LED0_ON_H: %02x\n",buf[6]);
+    printf("LED0_ON_L:  %02x\n",buf[5]);
+    printf("LED0_ON_H:  %02x\n",buf[6]);
     printf("LED0_OFF_L: %02x\n",buf[7]);
     printf("LED0_ODD_H: %02x\n",buf[8]);
-    printf("LED1_ON_L: %02x\n",buf[9]);
-    printf("LED1_ON_H: %02x\n",buf[10]);
+    printf("LED1_ON_L:  %02x\n",buf[9]);
+    printf("LED1_ON_H:  %02x\n",buf[10]);
     printf("LED1_OFF_L: %02x\n",buf[11]);
     printf("LED1_OFF_H: %02x\n",buf[12]);
-    printf("LED2_ON_L: %02x\n",buf[13]);
-    printf("LED2_ON_H: %02x\n",buf[14]);
+    printf("LED2_ON_L:  %02x\n",buf[13]);
+    printf("LED2_ON_H:  %02x\n",buf[14]);
     printf("LED2_OFF_L: %02x\n",buf[15]);
     printf("LED2_OFF_H: %02x\n",buf[16]);
 
