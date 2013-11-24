@@ -20,3 +20,9 @@ i2cget -y 1 0x40 0x08 b
 
 echo -n "LED0_OFF_H: "
 i2cget -y 1 0x40 0x09 b
+
+echo -n "PRE_SCALE: "
+i2cget -y 1 0x40 0xfe b
+
+echo -n "TestMode: "
+i2cget -y 1 0x40 0xff b
