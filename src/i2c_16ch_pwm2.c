@@ -62,11 +62,29 @@ void write_byte(int file, char reg[20]) {
     }
 }
 
+void write_byte2(int file, char* reg) {
+    if (write(file,reg,1) != 1) {
+        printf("Unable to write2 to slave\n");
+	exit(1);
+    }
+}
+
 void read_byte(int file, char* reg) {
 
     // read internal registers from PWM/Servo driver
     if (read(file,reg,2) != 2) {
-        printf("Unable to write to slave\n");
+        printf("Unable read from slave\n");
+	exit(1);
+    }
+}
+
+void read_byte2(int file, char* reg, char reg2[20]) {
+
+    write_byte2(file,reg2);
+
+    // read internal registers from PWM/Servo driver
+    if (read(file,reg,2) != 2) {
+        printf("Unable to read from slave\n");
 	exit(1);
     }
 }
@@ -85,6 +103,7 @@ int main(int argc, char **argv) {
     file = open_device(filename);
     set_port(file, addr);
 
+    // read from registers
     wr_buf[0] = MODE1;
     write_byte(file,wr_buf);
     read_byte(file,rd_buf);
@@ -114,6 +133,12 @@ int main(int argc, char **argv) {
     read_byte(file,rd_buf);
     // print out result
     printf("PRE_SCALE:  %02x\n",rd_buf[0]);
+
+    // read2
+    wr_buf[0] = MODE2;
+    read_byte2(file,rd_buf,wr_buf);
+    // print out result
+    printf("MODE2:  %02x\n",rd_buf[0]);
 
     return 0;
 }
