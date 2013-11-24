@@ -30,8 +30,8 @@ How to set values, 1.86 V = 0x900:
 
 
 
- How to use Adafruits's 16 channel 12-bit PWM/Servo driver
- ---------------------------------------------------------
+How to use Adafruits's 16 channel 12-bit PWM/Servo driver
+---------------------------------------------------------
 
 How to check the device:
   > i2cdetect -y 1
@@ -47,4 +47,17 @@ How to get information form PWM/Servo driver, 2nd byte is pointer reg.
   > i2cget -y 1 0x40 0x06 b    // LED0_ON_L , 0x22
   > i2cget -y 1 0x40 0x09 b    // LED0_OFF_H, 0x04
   > i2cget -y 1 0x40 0x08 b    // LED0_OFF_L, 0xcc
+
+ 
+How to use change pre scale value.
+----------------------------------
+
+Set SLEEP in MODE1 register = 1
+  > i2cset -y 1 0x40 0x00 0x10 b
+
+Set pre scale value, PRE_SCALE register.
+  > i2cset -y 1 0x40 0xfe 0x79 b
+
+Set SLEEP in MODE1 register = 0
+  > i2cset -y 1 0x40 0x00 0x00 b
 

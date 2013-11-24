@@ -18,10 +18,14 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-// TMP102 address
+// 16 channel PWM/Servo address
 #define PWM_16CH 0x40;
 // i2c port
 #define PORT_NO  1
+// Registers
+#define MODE1      0x00
+#define LED0_OFF_L 0x08
+#define PRE_SCALE  0xfe
 
 
 int main(int argc, char **argv) {
@@ -45,8 +49,11 @@ int main(int argc, char **argv) {
 
     // set up control and mode1 register
     int addr = PWM_16CH;
-    wr_buf[0] = 0x01;
-    wr_buf[1] = 0x31;
+
+    // uncomment the register you want to read
+    //wr_buf[0] = MODE1;
+    //wr_buf[0] = LED0_OFF_L;
+    wr_buf[0] = PRE_SCALE;
 
     // set port options
     if (ioctl(file,I2C_SLAVE,addr) < 0) {
@@ -55,35 +62,19 @@ int main(int argc, char **argv) {
     }
 
     // write initial phase so read can be done later
-    if (write(file,wr_buf,2) != 2) {
+    if (write(file,wr_buf,1) != 1) {
         printf("Unable to write to slave\n");
 	exit(1);
     }
 
     // read internal registers from PWM/Servo driver
-    if (read(file,buf,17) != 17) {
+    if (read(file,buf,2) != 2) {
         printf("Unable to write to slave\n");
 	exit(1);
     }
 
     // print out result
     printf("MODE1:   %02x\n",buf[0]);
-    printf("MODE2:   %02x\n",buf[1]);
-    printf("SUBADR1: %02x\n",buf[2]);
-    printf("SUBADR2: %02x\n",buf[3]);
-    printf("SUBADR3: %02x\n",buf[4]);
-    printf("LED0_ON_L:  %02x\n",buf[5]);
-    printf("LED0_ON_H:  %02x\n",buf[6]);
-    printf("LED0_OFF_L: %02x\n",buf[7]);
-    printf("LED0_ODD_H: %02x\n",buf[8]);
-    printf("LED1_ON_L:  %02x\n",buf[9]);
-    printf("LED1_ON_H:  %02x\n",buf[10]);
-    printf("LED1_OFF_L: %02x\n",buf[11]);
-    printf("LED1_OFF_H: %02x\n",buf[12]);
-    printf("LED2_ON_L:  %02x\n",buf[13]);
-    printf("LED2_ON_H:  %02x\n",buf[14]);
-    printf("LED2_OFF_L: %02x\n",buf[15]);
-    printf("LED2_OFF_H: %02x\n",buf[16]);
 
     return 0;
 }
