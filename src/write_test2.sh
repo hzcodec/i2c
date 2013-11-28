@@ -6,7 +6,7 @@
 #                 16 channel 12 bit PWM/Servo driver (PCA9685).
 #                 Four different setups are done.
 #                 Formula for calculating degrees.
-#                 y = -0.4x + 240
+#                 y = -0.4x + 240, y = degress, x = value in dec
 #                 
 #                 x    y
 #                 600  0
