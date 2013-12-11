@@ -4,8 +4,9 @@
     File        : i2c_16ch_pwm4.c
     Reference   : -
     Description : Control Adafruit's 16 channel 12-bit PWM/Servo driver.
-                  Art.no PCA9685.
+                  Servo HS-55.
 		  The code is controlling the module.
+                  y = -0.731x + 432, y = degress, x = value in dec
 */
 
 #include <stdio.h>
@@ -66,7 +67,7 @@ void write_byte(int file, char reg[20]) {
 
 int main(int argc, char **argv) {
 
-    printf("*** 16 channel PWM/Servo test program 4 ***\n");
+    printf("*** 16 channel PWM/Servo test program 5 ***\n");
 
     int   file;
     char  filename[20];
@@ -82,12 +83,12 @@ int main(int argc, char **argv) {
 
     while (c > 0) {
 
-	if (c > 179 || c < 1) {
+        if (c > 359 || c < 1) {
             c = 90;		
 	}
 
         // calculate the corresponding value for the entered angel
-        float value = (240 - c) / 0.4;
+        float value = (591 - c) / 1.369;
         int int_val = (int)value;
         uint16_t val_hex = (uint16_t)int_val;
 
